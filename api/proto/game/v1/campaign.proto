@@ -1,0 +1,201 @@
+syntax = "proto3";
+
+package game.v1;
+
+import "google/protobuf/timestamp.proto";
+import "game/v1/character.proto";
+import "game/v1/participant.proto";
+import "game/v1/session.proto";
+import "game/v1/scene.proto";
+
+option go_package = "github.com/fracturing-space/game/api/gen/go/game/v1;gamev1";
+
+enum CampaignPlayState {
+  CAMPAIGN_PLAY_STATE_UNSPECIFIED = 0;
+  CAMPAIGN_PLAY_STATE_SETUP = 1;
+  CAMPAIGN_PLAY_STATE_ACTIVE = 2;
+  CAMPAIGN_PLAY_STATE_PAUSED = 3;
+}
+
+message CreateCampaignRequest {
+  string name = 1;
+  string owner_name = 2;
+}
+
+message CreateCampaignResponse {
+  string campaign_id = 1;
+}
+
+message UpdateCampaignRequest {
+  string campaign_id = 1;
+  string name = 2;
+}
+
+message UpdateCampaignResponse {
+  string campaign_id = 1;
+}
+
+message SetCampaignAIBindingRequest {
+  string campaign_id = 1;
+  string ai_agent_id = 2;
+}
+
+message SetCampaignAIBindingResponse {
+  string campaign_id = 1;
+  string ai_agent_id = 2;
+}
+
+message ClearCampaignAIBindingRequest {
+  string campaign_id = 1;
+}
+
+message ClearCampaignAIBindingResponse {
+  string campaign_id = 1;
+}
+
+message GetCampaignRequest {
+  string campaign_id = 1;
+}
+
+message GetCampaignResponse {
+  uint64 head_seq = 1;
+  State state = 2;
+}
+
+message ListCampaignsRequest {}
+
+message ListCampaignsResponse {
+  repeated CampaignSummary campaigns = 1;
+}
+
+message GetCampaignPlayReadinessRequest {
+  string campaign_id = 1;
+}
+
+message GetCampaignPlayReadinessResponse {
+  CampaignPlayReadiness readiness = 1;
+}
+
+message StreamCampaignEventsRequest {
+  string campaign_id = 1;
+  uint64 after_seq = 2;
+}
+
+message PreparedCommit {
+  repeated Event events = 1;
+}
+
+enum CampaignPlayReadinessResolutionKind {
+  CAMPAIGN_PLAY_READINESS_RESOLUTION_KIND_UNSPECIFIED = 0;
+  CAMPAIGN_PLAY_READINESS_RESOLUTION_KIND_CONFIGURE_AI_AGENT = 1;
+  CAMPAIGN_PLAY_READINESS_RESOLUTION_KIND_MANAGE_PARTICIPANTS = 2;
+  CAMPAIGN_PLAY_READINESS_RESOLUTION_KIND_INVITE_PLAYER = 3;
+  CAMPAIGN_PLAY_READINESS_RESOLUTION_KIND_CREATE_CHARACTER = 4;
+}
+
+message CampaignPlayReadinessAction {
+  repeated string responsible_participant_ids = 1;
+  CampaignPlayReadinessResolutionKind resolution_kind = 2;
+  string target_participant_id = 3;
+}
+
+message CampaignPlayReadinessBlocker {
+  string code = 1;
+  string message = 2;
+  map<string, string> metadata = 3;
+  CampaignPlayReadinessAction action = 4;
+}
+
+message CampaignPlayReadiness {
+  bool ready = 1;
+  repeated CampaignPlayReadinessBlocker blockers = 2;
+}
+
+message CampaignSummary {
+  string campaign_id = 1;
+  string name = 2;
+  bool ready_to_play = 3;
+  bool has_ai_binding = 4;
+  bool has_active_session = 5;
+}
+
+message State {
+  string id = 1;
+  string name = 2;
+  CampaignPlayState play_state = 3;
+  repeated Participant participants = 4;
+  string ai_agent_id = 5;
+  repeated Character characters = 6;
+  Session active_session = 7;
+  string active_scene_id = 8;
+  repeated Scene scenes = 9;
+}
+
+message Event {
+  uint64 seq = 1;
+  uint64 commit_seq = 2;
+  string type = 3;
+  string campaign_id = 4;
+  google.protobuf.Timestamp recorded_at = 5;
+
+  oneof payload {
+    CampaignCreated campaign_created = 6;
+    CampaignUpdated campaign_updated = 7;
+    CampaignAIBound campaign_ai_bound = 8;
+    CampaignAIUnbound campaign_ai_unbound = 9;
+    CampaignPlayBegan campaign_play_began = 10;
+    CampaignPlayPaused campaign_play_paused = 11;
+    CampaignPlayResumed campaign_play_resumed = 12;
+    CampaignPlayEnded campaign_play_ended = 13;
+    ParticipantJoined participant_joined = 14;
+    ParticipantUpdated participant_updated = 15;
+    ParticipantBound participant_bound = 16;
+    ParticipantUnbound participant_unbound = 17;
+    ParticipantLeft participant_left = 18;
+    CharacterCreated character_created = 19;
+    CharacterUpdated character_updated = 20;
+    CharacterDeleted character_deleted = 21;
+    SessionStarted session_started = 22;
+    SessionEnded session_ended = 23;
+    SceneCreated scene_created = 24;
+    SceneActivated scene_activated = 25;
+    SceneEnded scene_ended = 26;
+    SceneCastReplaced scene_cast_replaced = 27;
+  }
+}
+
+message CampaignCreated {
+  string name = 1;
+}
+
+message CampaignPlayBegan {
+  string session_id = 1;
+  string scene_id = 2;
+}
+
+message CampaignPlayPaused {
+  string session_id = 1;
+  string scene_id = 2;
+  string reason = 3;
+}
+
+message CampaignPlayResumed {
+  string session_id = 1;
+  string scene_id = 2;
+  string reason = 3;
+}
+
+message CampaignPlayEnded {
+  string session_id = 1;
+  string scene_id = 2;
+}
+
+message CampaignUpdated {
+  string name = 1;
+}
+
+message CampaignAIBound {
+  string ai_agent_id = 1;
+}
+
+message CampaignAIUnbound {}

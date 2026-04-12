@@ -1,0 +1,17 @@
+version: 1
+module: github.com/fracturing-space/game
+service:
+  name: game
+  kind: grpc-service
+features:
+  proto: true
+  sqlc: true
+  normgen: true
+  coverage_floors: true
+  race: true
+  githooks: true
+  github_actions: true
+docs:
+  readme_fragment: docs/readme.local.md
+  contributing_fragment: docs/contributing.local.md
+  coverage_fragment: docs/testing/coverage.local.md

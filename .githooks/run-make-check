@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+printf 'Running make check from %s\n' "$repo_root" >&2
+exec make check

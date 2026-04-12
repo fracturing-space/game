@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package game.v1;
+
+option go_package = "github.com/fracturing-space/game/api/gen/go/game/v1;gamev1";
+
+message Character {
+  string id = 1;
+  string participant_id = 2;
+  string name = 3;
+}
+
+message CreateCharacterRequest {
+  string campaign_id = 1;
+  string participant_id = 2;
+  string name = 3;
+}
+
+message CreateCharacterResponse {
+  string character_id = 1;
+}
+
+message UpdateCharacterRequest {
+  string campaign_id = 1;
+  string character_id = 2;
+  string participant_id = 3;
+  string name = 4;
+}
+
+message UpdateCharacterResponse {
+  string character_id = 1;
+}
+
+message DeleteCharacterRequest {
+  string campaign_id = 1;
+  string character_id = 2;
+  string reason = 3;
+}
+
+message DeleteCharacterResponse {
+  string character_id = 1;
+}
+
+message CharacterCreated {
+  string character_id = 1;
+  string participant_id = 2;
+  string name = 3;
+}
+
+message CharacterUpdated {
+  string character_id = 1;
+  string participant_id = 2;
+  string name = 3;
+}
+
+message CharacterDeleted {
+  string character_id = 1;
+}
