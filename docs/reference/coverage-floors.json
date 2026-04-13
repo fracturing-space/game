@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "allow_drop": 0.1,
+  "packages": [
+    {
+      "package": "github.com/fracturing-space/game/internal/admission",
+      "floor": 100.0,
+      "description": "Central command admission rules for caller authz, campaign mode, and planning targeting."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/authz",
+      "floor": 90.0,
+      "description": "Caller-scoped campaign read, owner, and AI-GM authorization rules."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/campaign",
+      "floor": 90.0,
+      "description": "Campaign state helpers, AI binding, and event-backed mode definitions."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/character",
+      "floor": 90.0,
+      "description": "Character contracts for participant-owned playable characters."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/command",
+      "floor": 100.0,
+      "description": "Command envelope typing, command catalog validation, and spec registration rules."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/errs",
+      "floor": 100.0,
+      "description": "Classified domain failure kinds used to keep transport mapping stable."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/engine",
+      "floor": 100.0,
+      "description": "Module registry construction and command or event routing."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/event",
+      "floor": 100.0,
+      "description": "Event envelope typing, event catalog validation, and spec registration rules."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/modules/campaign",
+      "floor": 70.0,
+      "description": "Campaign command deciders and folders for create, AI binding, and mode transitions."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/modules/character",
+      "floor": 87.5,
+      "description": "Character command deciders and folders for campaign-scoped character creation."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/modules/participant",
+      "floor": 89.4,
+      "description": "Participant command deciders and folders for campaign participant mutations."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/modules/session",
+      "floor": 88.0,
+      "description": "Session lifecycle command deciders, folding, and default controller-assignment behavior."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/participant",
+      "floor": 88.0,
+      "description": "Participant contracts for human participants, access validation, and subject binding rules."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/readiness",
+      "floor": 88.0,
+      "description": "Deterministic play-readiness evaluation for AI binding, players, and characters."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/service",
+      "floor": 93.2,
+      "description": "Core service orchestration including commit, inspect, plan or execute-plan, replay, resource reads, and storage-port integration."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/session",
+      "floor": 88.0,
+      "description": "Session lifecycle contracts, validation, and normalization for session events and state."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/memory",
+      "floor": 90.0,
+      "description": "In-memory storage adapters for the journal, projection store, and artifact store ports."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/sqlite",
+      "floor": 79.3,
+      "description": "Top-level SQLite bundle wiring for the journal, projection store, and artifact store adapters."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/sqlite/artifacts",
+      "floor": 76.5,
+      "description": "SQLite artifact-store adapter for authored campaign documents."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/sqlite/eventjournal",
+      "floor": 74.6,
+      "description": "SQLite journal adapter for committed campaign events and in-process tail subscriptions."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/sqlite/internalutil",
+      "floor": 71.4,
+      "description": "Shared SQLite connection and migration helpers for the storage adapters."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/storage/sqlite/projections",
+      "floor": 68.4,
+      "description": "SQLite projection-store adapter for snapshots and repair watermarks."
+    },
+    {
+      "package": "github.com/fracturing-space/game/internal/transport/grpc/gamev1",
+      "floor": 79.4,
+      "description": "gRPC metadata parsing, status mapping, and protobuf translation for the simplified AI-GM model."
+    }
+  ]
+}

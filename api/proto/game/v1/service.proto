@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package game.v1;
+
+import "game/v1/campaign.proto";
+import "game/v1/character.proto";
+import "game/v1/participant.proto";
+import "game/v1/session.proto";
+
+option go_package = "github.com/fracturing-space/game/api/gen/go/game/v1;gamev1";
+
+service GameService {
+  rpc CreateCampaign(CreateCampaignRequest) returns (CreateCampaignResponse);
+  rpc UpdateCampaign(UpdateCampaignRequest) returns (UpdateCampaignResponse);
+  rpc CreateParticipant(CreateParticipantRequest) returns (CreateParticipantResponse);
+  rpc UpdateParticipant(UpdateParticipantRequest) returns (UpdateParticipantResponse);
+  rpc BindParticipant(BindParticipantRequest) returns (BindParticipantResponse);
+  rpc UnbindParticipant(UnbindParticipantRequest) returns (UnbindParticipantResponse);
+  rpc DeleteParticipant(DeleteParticipantRequest) returns (DeleteParticipantResponse);
+  rpc CreateCharacter(CreateCharacterRequest) returns (CreateCharacterResponse);
+  rpc UpdateCharacter(UpdateCharacterRequest) returns (UpdateCharacterResponse);
+  rpc DeleteCharacter(DeleteCharacterRequest) returns (DeleteCharacterResponse);
+  rpc BeginPlay(BeginPlayRequest) returns (BeginPlayResponse);
+  rpc EndPlay(EndPlayRequest) returns (EndPlayResponse);
+  rpc SetCampaignAIBinding(SetCampaignAIBindingRequest) returns (SetCampaignAIBindingResponse);
+  rpc ClearCampaignAIBinding(ClearCampaignAIBindingRequest) returns (ClearCampaignAIBindingResponse);
+  // GetCampaign returns the latest published committed campaign snapshot.
+  // In-flight writes are not visible until commit and publish complete.
+  rpc GetCampaign(GetCampaignRequest) returns (GetCampaignResponse);
+  rpc ListCampaigns(ListCampaignsRequest) returns (ListCampaignsResponse);
+  // GetCampaignPlayReadiness evaluates readiness from the latest published
+  // committed campaign snapshot.
+  rpc GetCampaignPlayReadiness(GetCampaignPlayReadinessRequest) returns (GetCampaignPlayReadinessResponse);
+  // StreamCampaignEvents emits committed events with seq greater than
+  // after_seq for one campaign. Authorization is evaluated when the stream
+  // opens and is not re-checked for every emitted event.
+  rpc StreamCampaignEvents(StreamCampaignEventsRequest) returns (stream Event);
+}

@@ -1,0 +1,13 @@
+version: "2"
+sql:
+  - engine: "sqlite"
+    queries: "internal/storage/sqlite/queries"
+    schema:
+      - "internal/storage/sqlite/migrations/events"
+      - "internal/storage/sqlite/migrations/projections"
+      - "internal/storage/sqlite/migrations/artifacts"
+    gen:
+      go:
+        package: "db"
+        out: "internal/storage/sqlite/db"
+        emit_empty_slices: true

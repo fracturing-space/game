@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package game.v1;
+
+option go_package = "github.com/fracturing-space/game/api/gen/go/game/v1;gamev1";
+
+enum SessionStatus {
+  SESSION_STATUS_UNSPECIFIED = 0;
+  SESSION_STATUS_ACTIVE = 1;
+  SESSION_STATUS_ENDED = 2;
+}
+
+message SessionCharacterControllerAssignment {
+  string character_id = 1;
+  string participant_id = 2;
+}
+
+message Session {
+  string id = 1;
+  string name = 2;
+  SessionStatus status = 3;
+  repeated SessionCharacterControllerAssignment character_controllers = 4;
+}
+
+message BeginPlayRequest {
+  string campaign_id = 1;
+}
+
+message BeginPlayResponse {
+  string campaign_id = 1;
+}
+
+message EndPlayRequest {
+  string campaign_id = 1;
+}
+
+message EndPlayResponse {
+  string campaign_id = 1;
+}
+
+message SessionStarted {
+  string session_id = 1;
+  string name = 2;
+  repeated SessionCharacterControllerAssignment character_controllers = 3;
+}
+
+message SessionEnded {
+  string session_id = 1;
+  string name = 2;
+  repeated SessionCharacterControllerAssignment character_controllers = 3;
+}

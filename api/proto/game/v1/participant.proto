@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package game.v1;
+
+option go_package = "github.com/fracturing-space/game/api/gen/go/game/v1;gamev1";
+
+enum ParticipantAccess {
+  PARTICIPANT_ACCESS_UNSPECIFIED = 0;
+  PARTICIPANT_ACCESS_OWNER = 1;
+  PARTICIPANT_ACCESS_MEMBER = 2;
+}
+
+message Participant {
+  string id = 1;
+  string name = 2;
+  ParticipantAccess access = 3;
+}
+
+message CreateParticipantRequest {
+  string campaign_id = 1;
+  string name = 2;
+  ParticipantAccess access = 3;
+}
+
+message CreateParticipantResponse {
+  string participant_id = 1;
+}
+
+message UpdateParticipantRequest {
+  string campaign_id = 1;
+  string participant_id = 2;
+  string name = 3;
+  ParticipantAccess access = 4;
+}
+
+message UpdateParticipantResponse {
+  string participant_id = 1;
+}
+
+message BindParticipantRequest {
+  string campaign_id = 1;
+  string participant_id = 2;
+}
+
+message BindParticipantResponse {
+  string participant_id = 1;
+}
+
+message UnbindParticipantRequest {
+  string campaign_id = 1;
+  string participant_id = 2;
+}
+
+message UnbindParticipantResponse {
+  string participant_id = 1;
+}
+
+message DeleteParticipantRequest {
+  string campaign_id = 1;
+  string participant_id = 2;
+  string reason = 3;
+}
+
+message DeleteParticipantResponse {
+  string participant_id = 1;
+}
+
+message ParticipantJoined {
+  string participant_id = 1;
+  string name = 2;
+  ParticipantAccess access = 3;
+}
+
+message ParticipantUpdated {
+  string participant_id = 1;
+  string name = 2;
+  ParticipantAccess access = 3;
+}
+
+message ParticipantBound {
+  string participant_id = 1;
+}
+
+message ParticipantUnbound {
+  string participant_id = 1;
+}
+
+message ParticipantLeft {
+  string participant_id = 1;
+}
